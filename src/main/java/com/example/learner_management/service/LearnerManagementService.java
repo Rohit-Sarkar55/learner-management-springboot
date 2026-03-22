@@ -53,4 +53,13 @@ public class LearnerManagementService {
             throw new CohortNotFoundException("Cohort Not Found");
         }
     }
+
+    public Cohort assignLearnerToCohort(Long cohortId, Long LearnerId) throws CohortNotFoundException {
+        Cohort cohort = getById(cohortId);
+        Learner learner = getLearnerById(LearnerId);
+
+        cohort.getLearners().add(learner);
+        addCohort(cohort);
+        return cohort;
+    }
 }
