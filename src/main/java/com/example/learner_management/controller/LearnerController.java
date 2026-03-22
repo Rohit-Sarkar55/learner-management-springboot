@@ -1,24 +1,37 @@
 package com.example.learner_management.controller;
 
 import com.example.learner_management.entity.Learner;
+import com.example.learner_management.exception.LearnerNotFoundException;
 import com.example.learner_management.service.LearnerManagementService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class LearnerController {
     @Autowired
     LearnerManagementService _learnerManagementService;
     @GetMapping("/learners")
-    public String getAllLearners(){
-        return "Fetching all learners" ;
+    public List<Learner> getAllLearners(){
+        return _learnerManagementService.getAllLearners();
     }
 
-    @PostMapping("/learners/create-learner")
+    @PostMapping("/learners")
     public void createLearner(@RequestBody Learner learner){
          _learnerManagementService.createLearner(learner);
     }
+
+    @GetMapping("/learners/{learnerId}")
+    public ResponseEntity<Learner> getLearnerById(@PathVariable Long learnerId){
+        try{
+//            return new ResponseEntity<>(_learnerManagementService.getLearnerById(learnerId), HttpStatus.OK);
+           return ResponseEntity.ok().body(_learnerManagementService.getLearnerById(learnerId));
+        }catch (LearnerNotFoundException e){
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
 }

@@ -14,7 +14,13 @@ public class Learner {
     private String learnerEmail;
     private String learnerPhone;
 
+    public long getLearnerId() {
+        return learnerId;
+    }
 
+    public void setLearnerId(long learnerId) {
+        this.learnerId = learnerId;
+    }
 
     public String getLearnerName() {
         return learnerName;
