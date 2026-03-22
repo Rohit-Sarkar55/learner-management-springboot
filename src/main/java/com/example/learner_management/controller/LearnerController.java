@@ -1,5 +1,6 @@
 package com.example.learner_management.controller;
 
+import com.example.learner_management.dto.LearnerDTO;
 import com.example.learner_management.entity.Learner;
 import com.example.learner_management.exception.LearnerNotFoundException;
 import com.example.learner_management.service.LearnerManagementService;
@@ -15,7 +16,7 @@ public class LearnerController {
     @Autowired
     LearnerManagementService _learnerManagementService;
     @GetMapping("/learners")
-    public List<Learner> getAllLearners(){
+    public List<LearnerDTO> getAllLearners(){
         return _learnerManagementService.getAllLearners();
     }
 

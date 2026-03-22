@@ -1,30 +1,18 @@
-package com.example.learner_management.entity;
+package com.example.learner_management.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.*;
+import com.example.learner_management.entity.Cohort;
+import jakarta.persistence.ManyToMany;
 
 import java.util.List;
 
-@Entity
-public class Learner {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+public class LearnerDTO {
     private long learnerId;
     private String learnerName;
     private String learnerEmail;
     private String learnerPhone;
 
-    @ManyToMany(mappedBy = "learners")
-    @JsonIgnore
-    private List<Cohort> cohorts;
 
-    public List<Cohort> getCohorts() {
-        return cohorts;
-    }
-
-    public void setCohorts(List<Cohort> cohorts) {
-        this.cohorts = cohorts;
-    }
+    private List<CohortDTO> cohorts;
 
     public long getLearnerId() {
         return learnerId;
@@ -56,5 +44,13 @@ public class Learner {
 
     public void setLearnerPhone(String learnerPhone) {
         this.learnerPhone = learnerPhone;
+    }
+
+    public List<CohortDTO> getCohorts() {
+        return cohorts;
+    }
+
+    public void setCohorts(List<CohortDTO> cohorts) {
+        this.cohorts = cohorts;
     }
 }
